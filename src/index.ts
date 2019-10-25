@@ -6,8 +6,6 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 
-const Foo = { template: '<div>foo</div>' }
-
 import App from './app.vue'
 import Player from './player.vue'
 import Videos from './videos.vue'
