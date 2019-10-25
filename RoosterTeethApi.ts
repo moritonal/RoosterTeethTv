@@ -199,7 +199,6 @@ declare module WatchTimeCollector {
 
 interface RoosterTeethOpts {
 
-    ClientId: string,
     Username: string,
     Password: string,
 }
@@ -293,7 +292,7 @@ export default class RoosterTeethApi {
             let newToken: OAuth.OAuth = await (await fetch("https://red.bonner.is/roosterteeth/oauth/token", {
                 method: "POST",
                 body: JSON.stringify({
-                    "client_id": this.options.ClientId,
+                    "client_id": "4338d2b4bdc8db1239360f28e72f0d9ddb1fd01e7a38fbb07b4b1f4ba4564cc5",
                     "grant_type": "password",
                     "password": this.options.Password,
                     "scope": "user public",

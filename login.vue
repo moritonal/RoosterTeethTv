@@ -84,7 +84,6 @@ export default Vue.extend({
 		tryLogin: debounce(async function() {
 
 			let api = new RoosterTeethApi({
-				ClientId: process.env.CLIENT_ID,
 				Username: this.username,
 				Password: this.password
             });
