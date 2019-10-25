@@ -3,10 +3,6 @@
     <div>
         
         <div class="container-fluid p-3">
-            <p>
-                <router-link to="/videos">Videos</router-link>
-                <router-link to="/player">Player</router-link>
-            </p>
             <transition name="slide" mode="out-in">
                 <router-view></router-view>
             </transition>
