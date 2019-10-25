@@ -57,8 +57,6 @@ export default Vue.extend({
 				},
 				() => {
 					try {
-						console.log("Ready!");
-
 						if (this.player == null) return;
 
 						if (vidLink.attributes.media_type == "manifest") {
