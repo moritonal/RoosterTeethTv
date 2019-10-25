@@ -19,24 +19,7 @@
     import InfiniteLoading from 'vue-infinite-loading';
 
     export default Vue.extend({
-        components: {
-            InfiniteLoading,
-        },
-        data() {
-            return {
-                bundler: "Parcel",
-                page: 1,
-                token: null,
-                videos: []
-            };
-        },
-        methods: {
-
-        },
-        async mounted() {
-            
-            // this.videos = await this.fetchVideos();
-        }
+        
     });
 
 </script>
