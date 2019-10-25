@@ -44,6 +44,14 @@
                 videos: []
             };
         },
+        mounted: function() {
+
+            let api = new RoosterTeethApi();
+
+            if (!api.loggedIn) {
+                this.$router.push('/')
+            }
+        },
         methods: {
             async infiniteHandler($state) {
 
@@ -65,7 +73,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
     $body-bg: #1d1d1d;
     $body-color: #e0e0e0;
