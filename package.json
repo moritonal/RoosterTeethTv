@@ -1,0 +1,33 @@
+{
+  "name": "rooster_teeth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --host 0.0.0.0 --port 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.0.0",
+    "pug": "^2.0.4",
+    "sass": "^1.23.0",
+    "typescript": "^3.6.4",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "@types/video.js": "^7.2.15",
+    "app.vue": "^0.1.10",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.4",
+    "extend": "^3.0.2",
+    "video.js": "^7.6.5",
+    "videojs-hotkeys": "^0.2.25",
+    "vue": "^2.6.10",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-infinite-loading": "^2.4.4",
+    "vue-router": "^3.1.3"
+  }
+}
