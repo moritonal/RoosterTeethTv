@@ -1,4 +1,4 @@
-declare module OAuth {
+export module OAuth {
 
     export interface OAuth {
         access_token: string;
@@ -211,15 +211,27 @@ export default class RoosterTeethApi {
     options: RoosterTeethOpts;
     token: string;
 
-    constructor(opts: RoosterTeethOpts) {
+    constructor(opts?: RoosterTeethOpts) {
 
         this.options = opts;
+    }
+
+    get loggedIn() : boolean {
+
+        if (this.token == null) {
+
+            let possibleToken = localStorage.getItem("roosterteeth");
+
+            if (possibleToken != null)
+                this.token = possibleToken;
+        }
+
+        return this.token != null;
     }
 
     async fetch(url: string, args?: any) {
 
         if (this.token == null) {
-            console.log("Fetching login token");
             this.token = (await this.login()).access_token;
         }
 
@@ -262,20 +274,12 @@ export default class RoosterTeethApi {
 
         let eps = (await this.fetch(`https://red.bonner.is/roosterteeth/api/v1/episodes?per_page=24&channel_id=achievement-hunter&order=desc&page=${page}`)).data
 
-        localStorage.setItem("roosterteeth_videos", JSON.stringify(eps));
-
-        console.log(eps);
-
         return <Array<Videos.Videos>>eps;
     }
 
     async getVideo(slug: string) {
 
         let vidLink = await this.fetch(`https://red.bonner.is/roosterteeth/api/v1/watch/${slug}/videos`);
-
-        // localStorage.setItem("roosterteeth_video", JSON.stringify(vidLink));
-
-        console.log(vidLink);
 
         return <Video.RootObject>vidLink;
     }
@@ -296,8 +300,6 @@ export default class RoosterTeethApi {
                     "username": this.options.Username
                 })
             })).json();
-
-            console.log(JSON.stringify(newToken));
 
             if (newToken.error == "invalid_grant") {
                 return;
