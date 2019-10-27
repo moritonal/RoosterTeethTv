@@ -3,7 +3,7 @@
     <div>
         <div class="container-fluid p-3">
             <div class="row">
-                <div class="col-3 offset-5"><h1>Episodes</h1></div>
+                <h1 class="text-center w-100">Episodes</h1>
             </div>
             <hr class="mt-0 mb-4">
             <div v-if="videos != null" class="row">
@@ -31,6 +31,8 @@
     import "video.js/dist/video-js.min.css"
     import InfiniteLoading from 'vue-infinite-loading';
     import RoosterTeethApi from "./RoosterTeethApi";
+
+    import Moment from "moment"
 
     export default Vue.extend({
         components: {
@@ -62,6 +64,11 @@
                 });
                 
                 let videos = await api.fetchVideos(this.page);
+
+                console.info(videos);
+
+                // Interestingly we can see sponsor meta-data for video's we can't stream yet
+                videos = videos.filter(i=> Moment(i.attributes.member_golive_at).isBefore());
 
                 this.page += 1;
                 this.videos.push(...videos);

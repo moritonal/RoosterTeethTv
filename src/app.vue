@@ -1,12 +1,9 @@
 
 <template>
-    <div>
-        
-        <div class="container-fluid p-3">
-            <transition name="slide" mode="out-in">
-                <router-view></router-view>
-            </transition>
-        </div>
+    <div>        
+        <transition name="slide" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>>
 
