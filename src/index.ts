@@ -10,6 +10,7 @@ import App from './app.vue'
 import Player from './player.vue'
 import Videos from './videos.vue'
 import Login from "./login.vue"
+import RoosterTeethApi from "./RoosterTeethApi";
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -17,7 +18,7 @@ import Login from "./login.vue"
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-    { path: '/', component: Login },
+    { path: '/', name: "login", component: Login },
     { path: '/videos', component: Videos },
     { path: '/player/:slug', name: "player", component: Player }
 ]
@@ -29,6 +30,11 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 })
 
+let api = new RoosterTeethApi();
+
+if (api.loggedIn && router.currentRoute.name == "login") {
+    router.push("videos");
+}
 
 const root = new Vue({
     router: router,

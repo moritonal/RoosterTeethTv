@@ -213,6 +213,11 @@ export default class RoosterTeethApi {
     constructor(opts?: RoosterTeethOpts) {
 
         this.options = opts;
+
+        let token = localStorage.getItem("roosterteeth");
+        
+        if (token !== null)
+            this.token = JSON.parse(token).access_token;
     }
 
     get loggedIn() : boolean {
@@ -222,7 +227,7 @@ export default class RoosterTeethApi {
             let possibleToken = localStorage.getItem("roosterteeth");
 
             if (possibleToken != null)
-                this.token = possibleToken;
+                this.token = JSON.parse(possibleToken).access_token;
         }
 
         return this.token != null;
@@ -245,9 +250,15 @@ export default class RoosterTeethApi {
 
     async getVideoPosition(content_uuid: string) {
 
-        let url = `https://wtc.roosterteeth.com/api/v1/my/played_positions/${content_uuid}`;
+        try {
+            let url = `https://wtc.roosterteeth.com/api/v1/my/played_positions/${content_uuid}`;
 
-        return <WatchTimeCollector.Get>(await this.fetch(url));
+            return <WatchTimeCollector.Get>(await this.fetch(url));
+        }
+        catch (e) {
+            console.warn(e);
+        }
+
     }
 
     async setVideoPosition(content_uuid: string, percentage: number, time: number) {
@@ -271,9 +282,13 @@ export default class RoosterTeethApi {
 
     async fetchVideos(page: number = 1) {
 
-        let eps = (await this.fetch(`https://red.bonner.is/roosterteeth/api/v1/episodes?per_page=24&channel_id=achievement-hunter&order=desc&page=${page}`)).data
+        let eps = (await this.fetch(`https://red.bonner.is/roosterteeth/api/v1/episodes?per_page=24&channel_id=achievement-hunter&order=desc&page=${page}`));
 
-        return <Array<Videos.Videos>>eps;
+        if (eps.data == undefined) {
+            console.warn(eps);
+        }
+
+        return <Array<Videos.Videos>>eps.data;
     }
 
     async getVideo(slug: string) {

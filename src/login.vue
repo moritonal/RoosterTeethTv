@@ -48,14 +48,14 @@
 </template>>
 
 <script lang="ts">
+
 import Vue from "vue";
-import videojs from "video.js";
-import "video.js/dist/video-js.min.css";
-import extend from "extend";
-import InfiniteLoading from "vue-infinite-loading";
 import RoosterTeethApi from "./RoosterTeethApi";
 
 function debounce(fn, delay) {
+
+	if (fn == null)
+		console.warn("fn == null");
 
     var timeoutID = null;
     
@@ -81,20 +81,30 @@ export default Vue.extend({
 		};
 	},
 	methods: {
-		tryLogin: debounce(async function() {
+		tryLogin: async function() {
+			this.directLogin()
+		},
+		directLogin: async function() {
 
 			let api = new RoosterTeethApi({
 				Username: this.username,
 				Password: this.password
             });
             
-            this.token = await api.login();
-
-            if (this.token.error == null) {
-                this.$router.push('videos')
-            }
-
-		}, 500)
+			let token = await api.login();
+			
+			if (token != undefined) {
+				if (token.error == null) {
+					this.$router.push('videos')
+				}
+			}
+		}
+	},
+	beforeMount: async function() {
+		await this.directLogin();
+	},
+	mounted: async function() {
+		this.directLogin = debounce(this.directLogin, 500);
 	}
 });
 </script>
