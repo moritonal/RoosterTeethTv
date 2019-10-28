@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build:
@@ -10,11 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     
-    - name: NPM Install
+    - name: Install
       run: npm install
       
-    - name: Run a one-line script
-      run: npm build
+    - name: Build
+      run: npm run build
     
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.5.0
