@@ -30,7 +30,7 @@
     import videojs from "video.js"
     import "video.js/dist/video-js.min.css"
     import InfiniteLoading from 'vue-infinite-loading';
-    import RoosterTeethApi from "./RoosterTeethApi";
+    import RoosterTeethApi from "./api/RoosterTeethApi";
 
     import Moment from "moment"
 

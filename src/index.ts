@@ -10,7 +10,7 @@ import App from './app.vue'
 import Player from './player.vue'
 import Videos from './videos.vue'
 import Login from "./login.vue"
-import RoosterTeethApi from "./RoosterTeethApi";
+import RoosterTeethApi from "./api/RoosterTeethApi";
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can

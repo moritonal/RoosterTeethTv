@@ -50,7 +50,7 @@
 <script lang="ts">
 
 import Vue from "vue";
-import RoosterTeethApi from "./RoosterTeethApi";
+import RoosterTeethApi from "./api/RoosterTeethApi";
 
 function debounce(fn, delay) {
 

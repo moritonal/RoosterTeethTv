@@ -15,7 +15,7 @@ import Vue from "vue";
 import videojs from "video.js";
 import "video.js/dist/video-js.min.css";
 import * as hotkeys from "videojs-hotkeys";
-import RoosterTeethApi from "./RoosterTeethApi";
+import RoosterTeethApi from "./api/RoosterTeethApi";
 
 export default Vue.extend({
 	data() {
