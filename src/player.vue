@@ -1,6 +1,7 @@
 
 <template>
-	<div v-bind:class="{blur : !playerReader}">
+	<div class="container-fluid h-100vh p-0">
+	<div v-bind:class="{blur : !playerReader, 'h-100': true}">
 		<video
 			ref="videoPlayer"
 			class="embed-responsive-item video-js vjs-big-play-centered w-100 h-100"
@@ -8,13 +9,14 @@
 			<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
 		</video>
 	</div>
+	</div>
 </template>>
 
 <script lang="ts">
+
 import Vue from "vue";
 import videojs from "video.js";
 import "video.js/dist/video-js.min.css";
-import * as hotkeys from "videojs-hotkeys";
 import RoosterTeethApi from "./api/RoosterTeethApi";
 
 export default Vue.extend({
@@ -174,5 +176,8 @@ div {
 }
 .container {
 	color: green;
+}
+.h-100vh {
+	height: 100vh;
 }
 </style>
