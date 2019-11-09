@@ -304,16 +304,34 @@ export default class RoosterTeethApi {
 
         if (token == null) {
 
-            let newToken: OAuth.OAuth = await (await fetch("https://red.bonner.is/roosterteeth/oauth/token", {
-                method: "POST",
-                body: JSON.stringify({
-                    "client_id": "4338d2b4bdc8db1239360f28e72f0d9ddb1fd01e7a38fbb07b4b1f4ba4564cc5",
-                    "grant_type": "password",
-                    "password": this.options.Password,
-                    "scope": "user public",
-                    "username": this.options.Username
-                })
-            })).json();
+            let FetchOverWebSocket = (await import("fetch-over-websockets/src/FetchOverWebSocket.ts")).default;
+
+            let req = new FetchOverWebSocket("ws://localhost:80");
+
+            let newToken : OAuth.OAuth = null;
+
+            try {
+
+                newToken = await (await req.fetch("https://auth.roosterteeth.com", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "User-Agent": "tls-over-websocket",
+                        "Keep-Alive": "false",
+                        "Accept": "*/*",
+                    },
+                    body: JSON.stringify({
+                        "client_id": "4338d2b4bdc8db1239360f28e72f0d9ddb1fd01e7a38fbb07b4b1f4ba4564cc5",
+                        "grant_type": "password",
+                        "password": this.options.Password,
+                        "scope": "user public",
+                        "username": this.options.Username
+                    })
+                })).json();
+            }
+            catch (ex) {
+                console.error(ex);   
+            }
 
             if (newToken.error == "invalid_grant") {
                 return;
