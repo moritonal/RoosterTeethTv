@@ -27,12 +27,8 @@
 <script lang="ts">
 
     import Vue from "vue";
-    import videojs from "video.js"
-    import "video.js/dist/video-js.min.css"
-    import InfiniteLoading from 'vue-infinite-loading';
     import RoosterTeethApi from "./api/RoosterTeethApi";
-
-    import Moment from "moment"
+    import InfiniteLoading from 'vue-infinite-loading';
 
     export default Vue.extend({
         components: {
@@ -46,7 +42,7 @@
                 videos: []
             };
         },
-        mounted: function() {
+        mounted: async function() {
 
             let api = new RoosterTeethApi();
 
@@ -66,6 +62,8 @@
                 let videos = await api.fetchVideos(this.page);
 
                 console.info(videos);
+            
+                const Moment = (await import("moment"));
 
                 // Interestingly we can see sponsor meta-data for video's we can't stream yet
                 videos = videos.filter(i=> Moment(i.attributes.member_golive_at).isBefore());
