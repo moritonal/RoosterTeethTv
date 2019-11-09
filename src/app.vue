@@ -10,10 +10,6 @@
 <script lang="ts">
 
     import Vue from "vue";
-    import videojs from "video.js"
-    import "video.js/dist/video-js.min.css"
-    import extend from "extend"
-    import InfiniteLoading from 'vue-infinite-loading';
 
     export default Vue.extend({
         
