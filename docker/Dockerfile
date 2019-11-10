@@ -12,4 +12,4 @@ RUN	git clone https://github.com/novnc/websockify /app/websockify
 # ENTRYPOINT [ "ls", "/app/websockify" ]
 RUN chmod +x /app/websockify/run
 
-ENTRYPOINT [ "bash", "/app/websockify/run", "-v", "6060"]
+ENTRYPOINT bash /app/websockify/run -v 6060 "$TARGET"
