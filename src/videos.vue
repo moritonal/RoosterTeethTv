@@ -61,8 +61,6 @@
                 
                 let videos = await api.fetchVideos(this.page);
 
-                console.info(videos);
-            
                 const Moment = (await import("moment"));
 
                 // Interestingly we can see sponsor meta-data for video's we can't stream yet
