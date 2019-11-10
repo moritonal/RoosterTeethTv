@@ -204,6 +204,7 @@ interface RoosterTeethOpts {
 }
 
 import extend from "extend"
+import { debounce } from "typescript-debounce-decorator";
 
 export default class RoosterTeethApi {
 
@@ -236,7 +237,15 @@ export default class RoosterTeethApi {
     async fetch(url: string, args?: any) {
 
         if (this.token == null) {
-            this.token = (await this.login()).access_token;
+
+            let payload = await this.login();
+
+            if (payload != null) {
+
+                return null;
+            }
+
+            this.token = payload.access_token;
         }
 
         args = extend(true, args, {
@@ -306,31 +315,39 @@ export default class RoosterTeethApi {
 
             let FetchOverWebSocket = (await import("fetch-over-websockets/src/FetchOverWebSocket.ts")).default;
 
-            let req = new FetchOverWebSocket("ws://localhost:80");
+            let req = new FetchOverWebSocket("wss://rooster.bonner.is");
 
             let newToken : OAuth.OAuth = null;
 
+            if (this.options.Username === "" || this.options.Password === "") 
+                return null;
+
+            let options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "User-Agent": "tls-over-websocket",
+                    "Keep-Alive": "false",
+                    "Accept": "*/*",
+                },
+                body: JSON.stringify({
+                    "client_id": "4338d2b4bdc8db1239360f28e72f0d9ddb1fd01e7a38fbb07b4b1f4ba4564cc5",
+                    "grant_type": "password",
+                    "password": this.options.Password,
+                    "scope": "user public",
+                    "username": this.options.Username
+                })
+            };
+
             try {
 
-                newToken = await (await req.fetch("https://auth.roosterteeth.com", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "User-Agent": "tls-over-websocket",
-                        "Keep-Alive": "false",
-                        "Accept": "*/*",
-                    },
-                    body: JSON.stringify({
-                        "client_id": "4338d2b4bdc8db1239360f28e72f0d9ddb1fd01e7a38fbb07b4b1f4ba4564cc5",
-                        "grant_type": "password",
-                        "password": this.options.Password,
-                        "scope": "user public",
-                        "username": this.options.Username
-                    })
-                })).json();
+                newToken = await (await req.fetch("https://auth.roosterteeth.com", options)).json();
             }
             catch (ex) {
-                console.error(ex);   
+                
+                console.warn("Rolling back to un-encrypted channel!");
+
+                newToken = await (await req.fetch("https://auth.roosterteeth.com", options)).json();
             }
 
             if (newToken.error == "invalid_grant") {
