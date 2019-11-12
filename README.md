@@ -16,14 +16,6 @@ npm start
 
 Site should now be accessible at https://localhost:1234
 
-## Running the tests
-
-TBD (Awkward...)
-
-### Break down into end to end tests
-
-See above
-
 ## Deployment
 
 Deployment is done for every commit to `Master` via GitHub CI. `npm build` is ran to build the site, then `GH-Pages` is used to commit the `dist` dir to our `GH-Pages` branch.
@@ -52,5 +44,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* RoosterTeeth's very neat API
+* RoosterTeeth's very neat API.
 
