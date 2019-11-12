@@ -1,14 +1,14 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 
 import BootstrapVue from 'bootstrap-vue'
-
 Vue.use(BootstrapVue)
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from './app.vue'
+
+window.NProgress.done()
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -19,7 +19,10 @@ const routes = [
     {
         path: '/',
         name: "login",
-        component: async () => await import("./login.vue"),
+        component: async () => {
+            window.NProgress.start();
+            return await import("./login.vue")
+        },
         meta: {
             title: "RoosterTV - Login",
             metaTags: [
@@ -32,7 +35,10 @@ const routes = [
     },
     {
         path: '/videos',
-        component: async () => await import("./videos.vue"),
+        component: async () => {
+            window.NProgress.start();
+            return await import("./videos.vue")
+        },
         meta: {
             title: "RoosterTV - Videos",
             metaTags: [
@@ -46,7 +52,10 @@ const routes = [
     {
         path: '/player/:slug',
         name: "player",
-        component: async () => await import("./player.vue"),
+        component: async () => {
+            window.NProgress.start();
+            return await import("./player.vue")
+        },
         meta: {
             title: "RoosterTV - Video",
             metaTags: [
@@ -61,8 +70,7 @@ const routes = [
             ]
         }
     }
-]
-
+];
 
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
@@ -70,6 +78,11 @@ const routes = [
 const router = new VueRouter({
     routes // short for `routes: routes`
 });
+
+router.afterEach((to, from) => {
+    window.NProgress.done()
+    console.log("done");
+})
 
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
