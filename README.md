@@ -6,10 +6,6 @@ Micro-site for paid members of RoosterTeeth to watch it's content on lighter dev
 
 You can view the site here: https://moritonal.github.io/RoosterTeethTv
 
-### Prerequisites
-
-None
-
 ### Installing
 
 ```
