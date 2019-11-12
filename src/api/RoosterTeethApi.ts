@@ -198,7 +198,7 @@ declare module WatchTimeCollector {
 }
 
 interface RoosterTeethOpts {
-
+    ClientId: string,
     Username: string,
     Password: string,
 }
