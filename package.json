@@ -34,7 +34,7 @@
     "extend": "^3.0.2",
     "fetch-over-websockets": "git+https://github.com/moritonal/FetchOverWebSockets.git",
     "jquery": "^3.5.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "nprogress": "^0.2.0",
     "uri-js": "^4.2.2",
     "video.js": "^7.6.6",
